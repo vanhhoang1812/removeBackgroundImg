@@ -10,7 +10,7 @@ st.title("Remove Background Image")
 
 st.divider()
 st.subheader("Upload an image :")
-col1, col2 = st.columns(2)
+col0, col1, col2 = st.columns(3)
 image = st.file_uploader(":arrow_up_small:  ", type=["png", "jpg", "jpeg"])
 
 
@@ -23,14 +23,17 @@ def convert_image(img):
 
 def fix_image(image):
     image = Image.open(image)
-
-    col1.write("Original :camera:")
-    col1.image(image)
-    selected_color = None
-
     edited_img = remove(image)
+    col0.write("Original")
+    col0.image(image)
+
+    col1.write("Remove Background")
+    col1.image(edited_img)
+    
+    selected_color = None
     st.subheader("Select a Color of Your Choise :")
-    selected_color = st.color_picker("Select Color")
+    selected_color = st.color_picker("Select Color",)
+    st.download_button("Download :inbox_tray: ", convert_image(edited_img), "output.png", "image/png",key="1")
     # Replace background with selected color
     edited_img = edited_img.convert("RGBA")
     data = edited_img.getdata()
@@ -45,9 +48,9 @@ def fix_image(image):
 
     edited_img.putdata(new_image)
 
-    col2.write("Edited ✏️")
+    col2.write("Background Color")
     col2.image(edited_img)
-    st.download_button("Download :arrow_down_small: ", convert_image(edited_img), "output.png", "image/png")
+    st.download_button("Download with color :rainbow: ", convert_image(edited_img), "output.png", "image/png",key="2")
 
 if image is not None:
     fix_image(image)
