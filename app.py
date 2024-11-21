@@ -1,7 +1,7 @@
 # importing modules
 import streamlit as st
 from rembg import remove
-from PIL import Image, ImageFilter, ImageEnhance, ImageColor
+from PIL import Image, ImageColor
 from io import BytesIO
 import base64
 
